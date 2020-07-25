@@ -34,8 +34,8 @@ type PriceHistoryOptions struct {
 	Frequency             int       `url:"frequency,omitempty"`
 	EndDate               time.Time `url:"-"`
 	StartDate             time.Time `url:"-"`
-	EndDateUnix           *int      `url:"endDate,omitempty"`
-	StartDateUnix         *int      `url:"startDate,omitempty"`
+	EndDateUnix           *int64    `url:"endDate,omitempty"`
+	StartDateUnix         *int64    `url:"startDate,omitempty"`
 	NeedExtendedHoursData *bool     `url:"needExtendedHoursData,omitempty"`
 }
 
