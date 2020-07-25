@@ -105,7 +105,7 @@ func (opts *PriceHistoryOptions) validate() error {
 		end := opts.EndDate.Unix() * 1000
 		opts.EndDateUnix = &end
 	}
-	if !opts.StartDate.IsZero() && otps.StartDateUnix == nil {
+	if !opts.StartDate.IsZero() && opts.StartDateUnix == nil {
 		start := opts.StartDate.Unix() * 1000
 		opts.StartDateUnix = &start
 	}
