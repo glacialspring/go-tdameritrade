@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/zricethezav/go-tdameritrade/tdameritrade"
+	"github.com/glacialspring/go-tdameritrade/tdameritrade"
 	"golang.org/x/oauth2"
 	"log"
 	"os"
@@ -46,21 +46,20 @@ func main() {
 
 	// more examples here: https://developer.tdameritrade.com/content/place-order-samples
 	resp, err := c.Account.CreateSavedOrder(ctx, accountID, &tdameritrade.Order{
-		Session: "NORMAL",
-		Duration: "DAY",
-		OrderType: "MARKET",
+		Session:           "NORMAL",
+		Duration:          "DAY",
+		OrderType:         "MARKET",
 		OrderStrategyType: "SINGLE",
 		OrderLegCollection: []*tdameritrade.OrderLegCollection{
 			{
 				Instruction: "Sell",
-				Quantity: 1,
+				Quantity:    1,
 				Instrument: tdameritrade.Instrument{
 					AssetType: "EQUITY",
 					Data: &tdameritrade.Equity{
 						Symbol: "XYZ",
 					},
 				},
-
 			},
 		},
 	})
@@ -69,4 +68,3 @@ func main() {
 	}
 	fmt.Println(resp.StatusCode)
 }
-
