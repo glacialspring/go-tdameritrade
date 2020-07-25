@@ -31,8 +31,10 @@ type PriceHistoryOptions struct {
 	Period                int       `url:"period,omitempty"`
 	FrequencyType         string    `url:"frequencyType,omitempty"`
 	Frequency             int       `url:"frequency,omitempty"`
-	EndDate               time.Time `url:"endDate,omitempty"`
-	StartDate             time.Time `url:"startDate,omitempty"`
+	EndDate               time.Time `url:"-"`
+	StartDate             time.Time `url:"-"`
+	EndDateUnix           *int      `url:"endDate,omitempty"`
+	StartDateUnix         *int      `url:"startDate,omitempty"`
 	NeedExtendedHoursData *bool     `url:"needExtendedHoursData,omitempty"`
 }
 
@@ -95,6 +97,15 @@ func (opts *PriceHistoryOptions) validate() error {
 		}
 	} else {
 		opts.PeriodType = defaultFrequencyType
+	}
+
+	if !opts.EndDate.IsZero() && opts.EndDateUnix == nil {
+		end := opts.EndDate.Unix() * 1000
+		opts.EndDateUnix = &end
+	}
+	if !opts.StartDate.IsZero() && otps.StartDateUnix == nil {
+		start := opts.StartDate.Unix() * 1000
+		opts.StartDateUnix = &start
 	}
 
 	return nil
