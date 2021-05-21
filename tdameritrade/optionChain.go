@@ -2,6 +2,7 @@ package tdameritrade
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -189,6 +190,9 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 		Volatility       float64                            `json:"volatility"`
 		CallExpDateMap   map[string]map[string][]OptionData `json:"callExpDateMap"`
 		PutExpDateMap    map[string]map[string][]OptionData `json:"putExpDateMap"`
+	}
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return err
 	}
 	c.Symbol = raw.Symbol
 	c.Status = raw.Status
