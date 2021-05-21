@@ -267,6 +267,7 @@ func (s *OptionChainService) OptionChain(ctx context.Context, symbol string, opt
 		if err != nil {
 			return nil, nil, err
 		}
+		q.Add("symbol", symbol)
 		u = fmt.Sprintf("%s?%s", u, q.Encode())
 	}
 
