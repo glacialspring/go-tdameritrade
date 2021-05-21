@@ -256,6 +256,23 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 		c.Calls[i].Strikes = strikes
 		i++
 	}
+	for dateStr, v := range raw.PutExpDateMap {
+		dateParts := strings.Split(dateStr, ":")
+		if c.Puts[i].ExpDate, err = time.Parse("2006-01-02", dateParts[0]); err != nil {
+			return err
+		}
+		if c.Puts[i].DaysTilExp, err = strconv.Atoi(dateParts[1]); err != nil {
+			return err
+		}
+		j := 0
+		strikes := make([]OptionData, len(v))
+		for _, optionData := range v {
+			strikes[j] = optionData[0]
+			j++
+		}
+		c.Puts[i].Strikes = strikes
+		i++
+	}
 	return nil
 }
 
