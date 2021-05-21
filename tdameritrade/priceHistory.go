@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/google/go-querystring/query"
-	"log"
 	"time"
 )
 
@@ -66,7 +65,6 @@ func (s *PriceHistoryService) PriceHistory(ctx context.Context, symbol string, o
 		}
 		u = fmt.Sprintf("%s?%s", u, q.Encode())
 	}
-	log.Println("price url", u)
 
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
