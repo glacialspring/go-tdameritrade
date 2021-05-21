@@ -49,7 +49,7 @@ type OptionChainOptions struct {
 	Volatility       float64   `url:"volatility,omitempty"`
 	UnderlyingPrice  float64   `url:"underlyingPrice,omitempty"`
 	InterestRate     float64   `url:"interestRate,omitempty"`
-	DaysToExpiration int       `url:"daysToExpiration,omitempty"`
+	DaysToExpiration float64   `url:"daysToExpiration,omitempty"`
 	ExpMonth         string    `url:"expMonth,omitempty"`
 	OptionType       string    `url:"optionType,omitempty"`
 }
@@ -135,7 +135,7 @@ type OptionChain struct {
 	Interval         float64
 	IsDelayed        bool
 	IsIndex          bool
-	DaysToExpiration int
+	DaysToExpiration float64
 	InterestRate     float64
 	UnderlyingPrice  float64
 	Volatility       float64
@@ -184,7 +184,7 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 		Interval         float64                            `json:"interval"`
 		IsDelayed        bool                               `json:"isDelayed"`
 		IsIndex          bool                               `json:"isIndex"`
-		DaysToExpiration int                                `json:"daysToExpiration"`
+		DaysToExpiration float64                            `json:"daysToExpiration"`
 		InterestRate     float64                            `json:"interestRate"`
 		UnderlyingPrice  float64                            `json:"underlyingPrice"`
 		Volatility       float64                            `json:"volatility"`
