@@ -93,7 +93,7 @@ type OptionData struct {
 		CurrencyType     string `json:"currencyType"`
 	} `json:"optionDeliverablesList"`
 	StrikePrice       float64 `json:"strikePrice"`
-	ExpirationDate    string  `json:"expirationDate"`
+	ExpirationDate    int64   `json:"expirationDate"`
 	ExpirationType    string  `json:"expirationType"`
 	Multiplier        float64 `json:"multiplier"`
 	SettlementType    string  `json:"settlementType"`
