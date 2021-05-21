@@ -132,7 +132,7 @@ type OptionChain struct {
 		TradeTime         int64
 	}
 	Strategy         string
-	Interval         int
+	Interval         float64
 	IsDelayed        bool
 	IsIndex          bool
 	DaysToExpiration int
@@ -181,7 +181,7 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 			TradeTime         int64   `json:"tradeTime"`
 		} `json:"underlying"`
 		Strategy         string                             `json:"strategy"`
-		Interval         int                                `json:"interval"`
+		Interval         float64                            `json:"interval"`
 		IsDelayed        bool                               `json:"isDelayed"`
 		IsIndex          bool                               `json:"isIndex"`
 		DaysToExpiration int                                `json:"daysToExpiration"`
