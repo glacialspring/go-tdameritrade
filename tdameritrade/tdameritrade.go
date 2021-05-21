@@ -30,6 +30,7 @@ type Client struct {
 	Account      *AccountsService
 	MarketHours  *MarketHoursService
 	Quotes       *QuotesService
+	OptionChain  *OptionChainService
 	Instrument   *InstrumentService
 	Chains       *ChainsService
 	Mover        *MoverService
@@ -59,6 +60,7 @@ func NewClient(httpClient *http.Client) (*Client, error) {
 	c.Account = &AccountsService{client: c}
 	c.MarketHours = &MarketHoursService{client: c}
 	c.Quotes = &QuotesService{client: c}
+	c.OptionChain = &OptionChainService{client: c}
 	c.Instrument = &InstrumentService{client: c}
 	c.Chains = &ChainsService{client: c}
 	c.Mover = &MoverService{client: c}
