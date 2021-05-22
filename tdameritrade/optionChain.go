@@ -58,7 +58,7 @@ type OptionChainOptions struct {
 type NaNFloat float64
 
 func (f *NaNFloat) UnmarshalJSON(b []byte) error {
-	if string(b) == "NaN" {
+	if string(b) == "\"NaN\"" {
 		*f = NaNFloat(math.NaN())
 	} else {
 		f_, err := strconv.ParseFloat(string(b), 64)
