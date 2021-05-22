@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -369,9 +370,15 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 			strikes[j] = optionData[0]
 			j++
 		}
+		sort.Slice(strikes, func(i, j int) bool {
+			return strikes[i].StrikePrice < strikes[j].StrikePrice
+		})
 		c.Calls[i].Strikes = strikes
 		i++
 	}
+	sort.Slice(c.Calls, func(i, j int) bool {
+		return c.Calls[i].DaysTilExp < c.Calls[j].DaysTilExp
+	})
 	i = 0
 	for dateStr, v := range raw.PutExpDateMap {
 		dateParts := strings.Split(dateStr, ":")
@@ -387,9 +394,15 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 			strikes[j] = optionData[0]
 			j++
 		}
+		sort.Slice(strikes, func(i, j int) bool {
+			return strikes[i].StrikePrice < strikes[j].StrikePrice
+		})
 		c.Puts[i].Strikes = strikes
 		i++
 	}
+	sort.Slice(c.Puts, func(i, j int) bool {
+		return c.Puts[i].DaysTilExp < c.Puts[j].DaysTilExp
+	})
 	return nil
 }
 
