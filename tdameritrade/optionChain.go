@@ -195,7 +195,7 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	spew.Dump(stirng(b), raw)
+	spew.Dump(string(b), raw)
 	c.Symbol = raw.Symbol
 	c.Status = raw.Status
 	c.Underlying.Ask = raw.Underlying.Ask
