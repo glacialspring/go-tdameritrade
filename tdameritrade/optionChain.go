@@ -104,10 +104,10 @@ type OptionData struct {
 	IsMini                 bool
 	IsNonStandard          bool
 	OptionDeliverablesList []struct {
-		Symbol           string
-		AssetType        string
-		DeliverableUnits string
-		CurrencyType     string
+		Symbol           string `json:"string"`
+		AssetType        string `json:"assetType"`
+		DeliverableUnits string `json:"deliverableUnits"`
+		CurrencyType     string `json:"currencyType"`
 	}
 	StrikePrice       float64
 	ExpirationDate    int64
