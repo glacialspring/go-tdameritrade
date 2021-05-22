@@ -104,10 +104,10 @@ type OptionData struct {
 	IsMini                 bool
 	IsNonStandard          bool
 	OptionDeliverablesList []struct {
-		Symbol           string `json:"string"`
-		AssetType        string `json:"assetType"`
-		DeliverableUnits string `json:"deliverableUnits"`
-		CurrencyType     string `json:"currencyType"`
+		Symbol           string
+		AssetType        string
+		DeliverableUnits string
+		CurrencyType     string
 	}
 	StrikePrice       float64
 	ExpirationDate    int64
@@ -206,7 +206,10 @@ func (o *OptionData) UnmarshalJSON(b []byte) error {
 	o.TheoreticalVolatility = raw.TheoreticalVolatility
 	o.IsMini = raw.IsMini
 	o.IsNonStandard = raw.IsNonStandard
-	o.OptionDeliverablesList = raw.OptionDeliverablesList
+	o.OptionDeliverablesList.Symbol = raw.OptionDeliverablesList.Symbol
+	o.OptionDeliverablesList.AssetType = raw.OptionDeliverablesList.AssetType
+	o.OptionDeliverablesList.DeliverableUnits = raw.OptionDeliverablesList.DeliverableUnits
+	o.OptionDeliverablesList.CurrencyType = raw.OptionDeliverablesList.CurrencyType
 	o.StrikePrice = raw.StrikePrice
 	o.ExpirationDate = raw.ExpirationDate
 	o.ExpirationType = raw.ExpirationType
