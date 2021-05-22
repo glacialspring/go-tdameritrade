@@ -72,53 +72,53 @@ func (f *naNFloat) UnmarshalJSON(b []byte) error {
 }
 
 type OptionData struct {
-	PutCall                string  `json:"putCall"`
-	Symbol                 string  `json:"symbol"`
-	Description            string  `json:"description"`
-	ExchangeName           string  `json:"exchangeName"`
-	BidPrice               float64 `json:"bidPrice"`
-	AskPrice               float64 `json:"askPrice"`
-	MarkPrice              float64 `json:"markPrice"`
-	BidSize                int     `json:"bidSize"`
-	AskSize                int     `json:"askSize"`
-	LastSize               int     `json:"lastSize"`
-	HighPrice              float64 `json:"highPrice"`
-	LowPrice               float64 `json:"lowPrice"`
-	OpenPrice              float64 `json:"openPrice"`
-	ClosePrice             float64 `json:"closePrice"`
-	TotalVolume            int     `json:"totalVolume"`
-	QuoteTimeInLong        int     `json:"quoteTimeInLong"`
-	TradeTimeInLong        int     `json:"tradeTimeInLong"`
-	NetChange              float64 `json:"netChange"`
-	Volatility             float64 `json:"volatility"`
-	Delta                  float64 `json:"delta"`
-	Gamma                  float64 `json:"gamma"`
-	Theta                  float64 `json:"theta"`
-	Vega                   float64 `json:"vega"`
-	Rho                    float64 `json:"rho"`
-	TimeValue              float64 `json:"timeValue"`
-	OpenInterest           float64 `json:"openInterest"`
-	IsInTheMoney           bool    `json:"isInTheMoney"`
-	TheoreticalOptionValue float64 `json:"theoreticalOptionValue"`
-	TheoreticalVolatility  float64 `json:"theoreticalVolatility"`
-	IsMini                 bool    `json:"isMini"`
-	IsNonStandard          bool    `json:"isNonStandard"`
+	PutCall                string
+	Symbol                 string
+	Description            string
+	ExchangeName           string
+	BidPrice               float64
+	AskPrice               float64
+	MarkPrice              float64
+	BidSize                int
+	AskSize                int
+	LastSize               int
+	HighPrice              float64
+	LowPrice               float64
+	OpenPrice              float64
+	ClosePrice             float64
+	TotalVolume            int
+	QuoteTimeInLong        int
+	TradeTimeInLong        int
+	NetChange              float64
+	Volatility             float64
+	Delta                  float64
+	Gamma                  float64
+	Theta                  float64
+	Vega                   float64
+	Rho                    float64
+	TimeValue              float64
+	OpenInterest           float64
+	IsInTheMoney           bool
+	TheoreticalOptionValue float64
+	TheoreticalVolatility  float64
+	IsMini                 bool
+	IsNonStandard          bool
 	OptionDeliverablesList []struct {
-		Symbol           string `json:"string"`
-		AssetType        string `json:"assetType"`
-		DeliverableUnits string `json:"deliverableUnits"`
-		CurrencyType     string `json:"currencyType"`
-	} `json:"optionDeliverablesList"`
-	StrikePrice       float64 `json:"strikePrice"`
-	ExpirationDate    int64   `json:"expirationDate"`
-	ExpirationType    string  `json:"expirationType"`
-	Multiplier        float64 `json:"multiplier"`
-	SettlementType    string  `json:"settlementType"`
-	DeliverableNote   string  `json:"deliverableNote"`
-	IsIndexOption     bool    `json:"isIndexOption"`
-	PercentChange     float64 `json:"percentChange"`
-	MarkChange        float64 `json:"markChange"`
-	MarkPercentChange float64 `json:"markPercentChange"`
+		Symbol           string
+		AssetType        string
+		DeliverableUnits string
+		CurrencyType     string
+	}
+	StrikePrice       float64
+	ExpirationDate    int64
+	ExpirationType    string
+	Multiplier        float64
+	SettlementType    string
+	DeliverableNote   string
+	IsIndexOption     bool
+	PercentChange     float64
+	MarkChange        float64
+	MarkPercentChange float64
 }
 
 func (o *OptionData) UnmarshalJSON(b []byte) error {
