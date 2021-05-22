@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/google/go-querystring/query"
 )
 
@@ -55,38 +55,53 @@ type OptionChainOptions struct {
 	OptionType       string    `url:"optionType,omitempty"`
 }
 
+type NaNFloat float64
+
+func (f *NaNFloat) UnmarshalJSON(b []byte) error {
+	if string(b) == "NaN" {
+		*f = NaNFloat(math.NaN())
+	} else {
+		f_, err := strconv.ParseFloat(string(b), 64)
+		if err != nil {
+			return err
+		}
+		*f = NaNFloat(f_)
+	}
+	return nil
+}
+
 type OptionData struct {
-	PutCall                string  `json:"putCall"`
-	Symbol                 string  `json:"symbol"`
-	Description            string  `json:"description"`
-	ExchangeName           string  `json:"exchangeName"`
-	BidPrice               float64 `json:"bidPrice"`
-	AskPrice               float64 `json:"askPrice"`
-	MarkPrice              float64 `json:"markPrice"`
-	BidSize                int     `json:"bidSize"`
-	AskSize                int     `json:"askSize"`
-	LastSize               int     `json:"lastSize"`
-	HighPrice              float64 `json:"highPrice"`
-	LowPrice               float64 `json:"lowPrice"`
-	OpenPrice              float64 `json:"openPrice"`
-	ClosePrice             float64 `json:"closePrice"`
-	TotalVolume            int     `json:"totalVolume"`
-	QuoteTimeInLong        int     `json:"quoteTimeInLong"`
-	TradeTimeInLong        int     `json:"tradeTimeInLong"`
-	NetChange              float64 `json:"netChange"`
-	Volatility             float64 `json:"volatility"`
-	Delta                  float64 `json:"delta"`
-	Gamma                  float64 `json:"gamma"`
-	Theta                  float64 `json:"theta"`
-	Vega                   float64 `json:"vega"`
-	Rho                    float64 `json:"rho"`
-	TimeValue              float64 `json:"timeValue"`
-	OpenInterest           float64 `json:"openInterest"`
-	IsInTheMoney           bool    `json:"isInTheMoney"`
-	TheoreticalOptionValue float64 `json:"theoreticalOptionValue"`
-	TheoreticalVolatility  float64 `json:"theoreticalVolatility"`
-	IsMini                 bool    `json:"isMini"`
-	IsNonStandard          bool    `json:"isNonStandard"`
+	PutCall                string   `json:"putCall"`
+	Symbol                 string   `json:"symbol"`
+	Description            string   `json:"description"`
+	ExchangeName           string   `json:"exchangeName"`
+	BidPrice               float64  `json:"bidPrice"`
+	AskPrice               float64  `json:"askPrice"`
+	MarkPrice              float64  `json:"markPrice"`
+	BidSize                int      `json:"bidSize"`
+	AskSize                int      `json:"askSize"`
+	LastSize               int      `json:"lastSize"`
+	HighPrice              float64  `json:"highPrice"`
+	LowPrice               float64  `json:"lowPrice"`
+	OpenPrice              float64  `json:"openPrice"`
+	ClosePrice             float64  `json:"closePrice"`
+	TotalVolume            int      `json:"totalVolume"`
+	QuoteTimeInLong        int      `json:"quoteTimeInLong"`
+	TradeTimeInLong        int      `json:"tradeTimeInLong"`
+	NetChange              float64  `json:"netChange"`
+	Volatility             NaNFloat `json:"volatility"`
+	Delta                  NaNFloat `json:"delta"`
+	Gamma                  NaNFloat `json:"gamma"`
+	Theta                  NaNFloat `json:"theta"`
+	Vega                   NaNFloat `json:"vega"`
+	Rho                    NaNFloat `json:"rho"`
+	TimeValue              float64  `json:"timeValue"`
+	OpenInterest           float64  `json:"openInterest"`
+	IsInTheMoney           bool     `json:"isInTheMoney"`
+	TheoreticalOptionValue NaNFloat `json:"theoreticalOptionValue"`
+	TheoreticalVolatility  float64  `json:"theoreticalVolatility"`
+	IsMini                 bool     `json:"isMini"`
+	IsNonStandard          bool     `json:"isNonStandard"`
 	OptionDeliverablesList []struct {
 		Symbol           string `json:"string"`
 		AssetType        string `json:"assetType"`
@@ -192,11 +207,9 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 		CallExpDateMap   map[string]map[string][]OptionData `json:"callExpDateMap"`
 		PutExpDateMap    map[string]map[string][]OptionData `json:"putExpDateMap"`
 	}
-	spew.Dump(string(b))
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	spew.Dump(raw)
 	c.Symbol = raw.Symbol
 	c.Status = raw.Status
 	c.Underlying.Ask = raw.Underlying.Ask
