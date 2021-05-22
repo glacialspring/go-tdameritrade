@@ -192,10 +192,11 @@ func (c *OptionChain) UnmarshalJSON(b []byte) error {
 		CallExpDateMap   map[string]map[string][]OptionData `json:"callExpDateMap"`
 		PutExpDateMap    map[string]map[string][]OptionData `json:"putExpDateMap"`
 	}
+	spew.Dump(string(b))
 	if err := json.Unmarshal(b, &raw); err != nil {
 		return err
 	}
-	spew.Dump(string(b), raw)
+	spew.Dump(raw)
 	c.Symbol = raw.Symbol
 	c.Status = raw.Status
 	c.Underlying.Ask = raw.Underlying.Ask
